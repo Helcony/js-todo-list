@@ -1,26 +1,32 @@
-let max = parseInt(prompt("enter a number between 1 to 30"));
-while (!max || max >= 30) {
-    max = parseInt(prompt("enter a valid number"));
-}
+let userInput = prompt("What would you like to do?");
+const todos = ["collect chicken eggs", "clean litter box"];
 
-const target = Math.floor(Math.random() * max) + 1;
-console.log(target);
- 
-let guess = parseInt(prompt("enter your first guess"));
-let attempts = 1;
-while (parseInt(guess) !== target) {
-    if (guess === 'q') {
-        break;
+while (userInput !== "quit" && userInput !== "q") {
+    if (userInput === "new") {
+        const todo = prompt("Enter a new todo");
+        todos.push(todo);
+        console.log(`${todo} added to the list`);
+    } else if (userInput === "list") {
+        console.log("**********");
+        for (let i = 0; i < todos.length; i++) {
+            console.log(`${i}: ${todos[i]} `);
+        }
+        console.log("**********");
+    } else if (userInput === "delete") {
+        console.log("**********");
+        console.log("What would you like to delete?");
+        for (let i = 0; i < todos.length; i++) {
+            console.log(`${i}: ${todos[i]} `);
+        }
+        console.log("**********");
+        const index = parseInt(prompt("Enter an index to delete:"));
+        if (!Number.isNaN(index)) {
+            const deleted = todos.splice(index, 1);
+            console.log(`${deleted[0]} has been deleted.`);
+        } else {
+            console.log("invalid index");
+        }
     }
-    attempts++;
-    if (guess > target) {
-        guess = prompt("too high, enter new guess");
-    }  else if (guess < target) {
-        guess = prompt("too low, enter new guess");
-    }
+    userInput = prompt("What would you like to do?");
 }
-if (guess === 'q') {
-    console.log(`the number was ${target}`)
-} else {
-    console.log(`you got it, it took you ${attempts} guesses`)
-}
+console.log("quit");
